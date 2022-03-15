@@ -24,37 +24,11 @@
                   <p class="mb-0">Enter your email and password to sign in</p>
                 </div>
                 <div class="card-body">
-                  <!-- <Form @submit="handleLogin" class="text-start">
-                    <label>Email</label>
-                    <vsud-input type="email" placeholder="Email" name="email" />
-                    <label>Password</label>
-                    <vsud-input
-                      type="password"
-                      placeholder="Password"
-                      name="password"
-                    />
-
-                    <div class="text-center">
-                      <vsud-button
-                        class="my-4 mb-2"
-                        variant="gradient"
-                        color="info"
-                        :aria-disabled="loading"
-                        fullWidth
-                      >
-                        <span
-                          v-show="loading"
-                          class="spinner-border spinner-border-sm"
-                        ></span>
-                        <span v-show="!loading">Sign IN</span>
-                      </vsud-button>
-                    </div>
-                  </Form> -->
-                  <Form @submit="handleLogin" :validation-schema="schema">
+                  <Form @submit="handleLogin" class="text-start">
                     <div class="form-group">
-                      <label for="username">Username</label>
-                      <Field name="username" type="text" class="form-control" />
-                      <ErrorMessage name="username" class="error-feedback" />
+                      <label for="email">Email</label>
+                      <Field name="email" type="text" class="form-control" />
+                      <ErrorMessage name="email" class="error-feedback" />
                     </div>
                     <div class="form-group">
                       <label for="password">Password</label>
@@ -72,21 +46,11 @@
                         :disabled="loading"
                       >
                         <span
-                          v-show="loading"
+                          v-if="loading"
                           class="spinner-border spinner-border-sm"
                         ></span>
-                        <span>Login</span>
+                        <span v-else>Login</span>
                       </button>
-                    </div>
-
-                    <div class="form-group">
-                      <div
-                        v-if="message"
-                        class="alert alert-danger"
-                        role="alert"
-                      >
-                        {{ message }}
-                      </div>
                     </div>
                   </Form>
                 </div>
@@ -135,6 +99,7 @@
   import AppFooter from '@/examples/PageLayout/Footer.vue';
   import VsudInput from '@/components/VsudInput.vue';
   import VsudButton from '@/components/VsudButton.vue';
+  import { Form, Field, ErrorMessage } from 'vee-validate';
   const body = document.getElementsByTagName('body')[0];
   import * as yup from 'yup';
 
@@ -145,6 +110,9 @@
       AppFooter,
       VsudInput,
       VsudButton,
+      Form,
+      Field,
+      ErrorMessage,
     },
     data() {
       const schema = yup.object().shape({

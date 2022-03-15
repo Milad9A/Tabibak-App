@@ -31,7 +31,16 @@
         </div>
         <ul class="navbar-nav justify-content-end">
           <li class="nav-item d-flex align-items-center">
+            <vsud-button
+              v-if="currentUser"
+              color="dark"
+              fullWidth
+              variant="gradient"
+              @click.prevent="logOut"
+              >Logout</vsud-button
+            >
             <router-link
+              v-else
               :to="{ name: 'Sign In' }"
               class="px-0 nav-link font-weight-bold"
               :class="textWhite ? textWhite : 'text-body'"
@@ -40,10 +49,7 @@
                 class="fa fa-user"
                 :class="this.$store.state.isRTL ? 'ms-sm-2' : 'me-sm-1'"
               ></i>
-              <span v-if="this.$store.state.isRTL" class="d-sm-inline d-none"
-                >سجل الدخول</span
-              >
-              <span v-else class="d-sm-inline d-none">Sign In </span>
+              <span class="d-sm-inline d-none">Sign In</span>
             </router-link>
           </li>
           <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -67,6 +73,7 @@
 </template>
 <script>
   import Breadcrumbs from '../Breadcrumbs.vue';
+  import VsudButton from '@/components/VsudButton.vue';
   import { mapMutations, mapActions } from 'vuex';
 
   export default {
@@ -88,11 +95,19 @@
         this.toggleSidebarColor('bg-white');
         this.navbarMinimize();
       },
+      logOut() {
+        this.$store.dispatch('auth/logout');
+        this.$router.push('/');
+      },
     },
     components: {
       Breadcrumbs,
+      VsudButton,
     },
     computed: {
+      currentUser() {
+        return this.$store.state.auth.user;
+      },
       currentRouteName() {
         return this.$route.name;
       },
