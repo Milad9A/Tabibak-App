@@ -22,9 +22,11 @@
           </div>
         </div>
         <div class="col-auto my-auto">
-          <div class="h-100">
-            <h5 class="mb-1">Alec Thompson</h5>
-            <p class="mb-0 text-sm font-weight-bold">CEO / Co-Founder</p>
+          <div v-if="currentUser" class="h-100">
+            <h5 class="mb-1">{{ currentUser.user.name }}</h5>
+            <p class="mb-0 text-sm font-weight-bold">
+              {{ currentUser.user.role }}
+            </p>
           </div>
         </div>
         <div
@@ -481,61 +483,65 @@
 </template>
 
 <script>
-import VsudSwitch from "@/components/VsudSwitch.vue";
-import ProfileCard from "./components/ProfileCard.vue";
-import VsudAvatar from "../components/VsudAvatar.vue";
-import sophie from "@/assets/img/kal-visuals-square.jpg";
-import marie from "@/assets/img/marie.jpg";
-import ivana from "@/assets/img/ivana-square.jpg";
-import peterson from "@/assets/img/team-4.jpg";
-import nick from "@/assets/img/team-3.jpg";
-import img1 from "@/assets/img/home-decor-1.jpg";
-import img2 from "@/assets/img/home-decor-2.jpg";
-import img3 from "@/assets/img/home-decor-3.jpg";
-import team1 from "@/assets/img/team-1.jpg";
-import team2 from "@/assets/img/team-2.jpg";
-import team3 from "@/assets/img/team-3.jpg";
-import team4 from "@/assets/img/team-4.jpg";
+  import VsudSwitch from '@/components/VsudSwitch.vue';
+  import ProfileCard from './components/ProfileCard.vue';
+  import VsudAvatar from '../components/VsudAvatar.vue';
+  import sophie from '@/assets/img/kal-visuals-square.jpg';
+  import marie from '@/assets/img/marie.jpg';
+  import ivana from '@/assets/img/ivana-square.jpg';
+  import peterson from '@/assets/img/team-4.jpg';
+  import nick from '@/assets/img/team-3.jpg';
+  import img1 from '@/assets/img/home-decor-1.jpg';
+  import img2 from '@/assets/img/home-decor-2.jpg';
+  import img3 from '@/assets/img/home-decor-3.jpg';
+  import team1 from '@/assets/img/team-1.jpg';
+  import team2 from '@/assets/img/team-2.jpg';
+  import team3 from '@/assets/img/team-3.jpg';
+  import team4 from '@/assets/img/team-4.jpg';
 
-import ProjectsCard from "./components/ProjectOverviewCard.vue";
+  import ProjectsCard from './components/ProjectOverviewCard.vue';
 
-import setNavPills from "@/assets/js/nav-pills.js";
-import setTooltip from "@/assets/js/tooltip.js";
+  import setNavPills from '@/assets/js/nav-pills.js';
+  import setTooltip from '@/assets/js/tooltip.js';
 
-export default {
-  name: "profile-overview",
-  data() {
-    return {
-      showMenu: false,
-      sophie,
-      marie,
-      ivana,
-      peterson,
-      nick,
-      img1,
-      team1,
-      team2,
-      team3,
-      team4,
-      img2,
-      img3,
-    };
-  },
-  components: {
-    VsudSwitch,
-    ProfileCard,
-    VsudAvatar,
-    ProjectsCard,
-  },
-
-  mounted() {
-    this.$store.state.isAbsolute = true;
-    this.$store.state.isNavFixed = false;
-    setNavPills();
-    setTooltip();
-  },
-  beforeUnmount() {
-    this.$store.state.isAbsolute = false;
-  },
-};
+  export default {
+    name: 'profile-overview',
+    data() {
+      return {
+        showMenu: false,
+        sophie,
+        marie,
+        ivana,
+        peterson,
+        nick,
+        img1,
+        team1,
+        team2,
+        team3,
+        team4,
+        img2,
+        img3,
+      };
+    },
+    components: {
+      VsudSwitch,
+      ProfileCard,
+      VsudAvatar,
+      ProjectsCard,
+    },
+    computed: {
+      currentUser() {
+        return this.$store.state.auth.user;
+      },
+    },
+    mounted() {
+      this.$store.state.isAbsolute = true;
+      this.$store.state.isNavFixed = false;
+      setNavPills();
+      setTooltip();
+    },
+    beforeUnmount() {
+      this.$store.state.isAbsolute = false;
+    },
+  };
 </script>
